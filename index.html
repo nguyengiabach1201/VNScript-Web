@@ -13,7 +13,7 @@
 
     <!-- JS -->
     <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js" integrity="sha512-I6CdJdruzGtvDyvdO4YsiAq+pkWf2efgd1ZUSK2FnM/u2VuRASPC7GowWQrWyjxCZn6CT89s3ddGI+be0Ak9Fg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-    <script type="text/javascript" src="beep.js"></script>
+    <script type="text/javascript" src="/VNScript/beep.js"></script>
 
     <!-- Tags and brackets -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/closetag.min.js" integrity="sha512-XYx5xhl4B5vKNlaRBWh/nlti0+IPM6eT+dSFc3/oc4rERn2DpwbS3q4OblprqqBLXyRSVePKmf+8mHkDLtGZpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -25,13 +25,17 @@
 <body>
     <div class="container">
         <textarea id="editor"></textarea>
-        <div class="verticalLine"></div>
         <div id="console">
-            <button onclick="run()">Chạy</button>
-            <button onclick="clean()">Dọn</button>
-            <div class="horizontalLine"></div>
+            <div id="buttons">
+                <button onclick="run()">Chạy</button>
+                <button onclick="clean()">Dọn</button>
+            </div>
+            <div id="output"></div>
+            <div id="canvas-container">
+                <canvas style="width:50vw; height:50vw"></canvas>
+            </div>
         </div>
     </div>    
-    <script src="main.js"></script>    
+    <script src="/VNScript/main.js"></script>    
 </body>
 </html>
