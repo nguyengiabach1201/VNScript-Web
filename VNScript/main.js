@@ -119,6 +119,12 @@ function run() {
     scriptBefore = scriptBefore.replaceAll(')',' ) ')
     scriptBefore = scriptBefore.replaceAll('=','= ')
     scriptBefore = scriptBefore.replaceAll('= =','==')
+    scriptBefore = scriptBefore.replaceAll('+','+ ')
+    scriptBefore = scriptBefore.replaceAll('+ =','+=')
+    scriptBefore = scriptBefore.replaceAll('+ +','++')
+    scriptBefore = scriptBefore.replaceAll('-','- ')
+    scriptBefore = scriptBefore.replaceAll('- =','-=')
+    scriptBefore = scriptBefore.replaceAll('- -','--')
 
     let tokens = scriptBefore.split(" ")
 
