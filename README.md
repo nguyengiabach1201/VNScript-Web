@@ -1,3 +1,5 @@
+# THis version on GitHub is outdated, this should be deleted all and update from the PC drive
+
 # VNScript
 A programming language in Vietnamese based on Javascript
 
