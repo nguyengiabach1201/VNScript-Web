@@ -27,7 +27,7 @@ body {
     height: 100%;
     border: none;
     font-family: monospace;
-    font-size: 14px;
+    font-size: 15px;
     padding: 10px;
     background-color: #fff;
 }
@@ -38,6 +38,10 @@ body {
     font-family: monospace;
     font-size: 14px;
     overflow-y: scroll;
+}
+
+.output-container > *{
+    margin: 0;
 }
 
 .run-button {
