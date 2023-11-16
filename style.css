@@ -1,80 +1,80 @@
 body {
-            font-family: sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
+    font-family: sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
-        .editor-container,
-        .output-container {
-            flex: 1;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+.editor-container,
+.output-container {
+    flex: 1;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-        #code-editor {
-            width: 100%;
-            height: 100%;
-            border: none;
-            font-family: monospace;
-            font-size: 14px;
-            padding: 10px;
-            background-color: #fff;
-        }
+#code-editor {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-family: monospace;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #fff;
+}
 
-        .output-container {
-            padding: 20px;
-            background-color: #f8f8f8;
-            font-family: monospace;
-            font-size: 14px;
-            overflow-y: scroll;
-        }
+.output-container {
+    padding: 20px;
+    background-color: #f8f8f8;
+    font-family: monospace;
+    font-size: 14px;
+    overflow-y: scroll;
+}
 
-        .run-button {
-            display: block;
-            margin: 0 auto;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+.run-button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+}
 
-        @media (min-width: 768px) {
-            .container {
-                flex-direction: row;
-            }
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+    }
 
-            .editor-container,
-            .output-container {
-                flex: 1;
-            }
+    .editor-container,
+    .output-container {
+        flex: 1;
+    }
 
-            .run-button {
-                height: 25%;
-                /* width: 50%; */
-            }
-        }
+    .run-button {
+        height: 25%;
+        /* width: 50%; */
+    }
+}
 
-        ::-webkit-scrollbar {
-            width: 5px;
-            height: 8px;
-            background-color: rgb(222, 211, 211);
-        }
+::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: rgb(222, 211, 211);
+}
 
-        ::-webkit-scrollbar-thumb {
-            border-radius: 25px;
-            background: gray;
-        }
+::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background: gray;
+}
