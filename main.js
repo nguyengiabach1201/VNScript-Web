@@ -100,6 +100,10 @@ function viết(e) {
     let terminal = document.getElementById("output-container");terminal.appendChild(document.createElement("p")).innerHTML = e;
 }
 
+function nhập(e) {
+    return prompt(e)
+}
+
 function parser(tokens) {
     scriptAfter = 'function dài(e){return e.length};'
 
