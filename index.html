@@ -1,42 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VNScript</title>
-    <link rel="stylesheet" href="style.css">
+    <title>JavaScript Online Compiler</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"
+        integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"
+        integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js"
+        integrity="sha512-I6CdJdruzGtvDyvdO4YsiAq+pkWf2efgd1ZUSK2FnM/u2VuRASPC7GowWQrWyjxCZn6CT89s3ddGI+be0Ak9Fg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/base16-light.min.css"
+        integrity="sha512-UCcyAfcA/pJ4lD8YMo+fhwFdJeGNN5QrBlHvTQ1BopVjHWh35HD2JRV3tbwxtabH5ymri426oTfa1UF9Z63B3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
 
-    <!-- Codemirror -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js" integrity="sha512-8RnEqURPUc5aqFEN04aQEiPlSAdE0jlFS/9iGgUyNtwFnSKCXhmB6ZTNl7LnDtDWKabJIASzXrzD0K+LYexU9g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/xml/xml.min.js" integrity="sha512-LarNmzVokUmcA7aUDtqZ6oTS+YXmUKzpGdm8DxC46A6AHu+PQiYCUlwEGWidjVYMo/QXZMFMIadZtrkfApYp/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-    <!-- JS -->
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/javascript/javascript.min.js" integrity="sha512-I6CdJdruzGtvDyvdO4YsiAq+pkWf2efgd1ZUSK2FnM/u2VuRASPC7GowWQrWyjxCZn6CT89s3ddGI+be0Ak9Fg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-    <script type="text/javascript" src="./VNScript/beep.js"></script>
+        .editor-container,
+        .output-container {
+            flex: 1;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-    <!-- Tags and brackets -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/closetag.min.js" integrity="sha512-XYx5xhl4B5vKNlaRBWh/nlti0+IPM6eT+dSFc3/oc4rERn2DpwbS3q4OblprqqBLXyRSVePKmf+8mHkDLtGZpg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/closebrackets.min.js" integrity="sha512-tsjcYO5hFvViRssxiM7Jhd8601epWOx1He3Hl4yuI5dKKPxr43KxkOhc9GZeeqzlYJm9ABb7UPA9697NiqZZ7Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/matchbrackets.min.js" integrity="sha512-GSYCbN/le5gNmfAWVEjg1tKnOH7ilK6xCLgA7c48IReoIR2g2vldxTM6kZlN6o3VtWIe6fHu/qhwxIt11J8EBA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/edit/matchtags.min.js" integrity="sha512-wZDyiYRCXczD+UFYLUfsEag3MxJW/ev0CZ0rCTPt3Qcwr4J7LZHJM3XWa2VSEI0s3nGUjPmJRFhrPhgr/Z3Auw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        #code-editor {
+            width: 100%;
+            height: 100%;
+            border: none;
+            font-family: monospace;
+            font-size: 14px;
+            padding: 10px;
+            background-color: #fff;
+        }
 
+        .output-container {
+            padding: 20px;
+            background-color: #f8f8f8;
+            font-family: monospace;
+            font-size: 14px;
+            overflow-y: scroll;
+        }
+
+        .run-button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
+
+            .editor-container,
+            .output-container {
+                flex: 1;
+            }
+
+            .run-button {
+                height: 25%;
+                /* width: 50%; */
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 8px;
+            background-color: rgb(222, 211, 211);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            border-radius: 25px;
+            background: gray;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
-        <textarea id="editor"></textarea>
-        <div id="console">
-            <div id="buttons">
-                <button onclick="run()">Chạy</button>
-                <button onclick="clean()">Dọn</button>
-            </div>
-            <div id="output"></div>
-            <div id="canvas-container">
-                <canvas style="width:50vw; height:50vw"></canvas>
-            </div>
+
+        <div class="editor-container">
+            <textarea id="code-editor"></textarea>
         </div>
-    </div>    
-<!--     <script src="./VNScript/main.js"></script>     -->
-    <script src="./main.js"></script>
+
+        <div class="output-container" id="output-container"></div>
+
+        <button class="run-button" id="run-button">Run Code</button>
+    </div>
+
+    <script>
+        const editorContainer = document.querySelector('.editor-container');
+        const runButton = document.getElementById('run-button');
+        const outputContainer = document.getElementById('output-container');
+
+        // Adjust the height of the run button on window resize
+        window.addEventListener('resize', () => {
+            const editorHeight = editorContainer.offsetHeight;
+            const outputHeight = outputContainer.offsetHeight;
+
+            // Set the height of the run button to the maximum of the editor and output container heights
+            runButton.style.height = Math.max(editorHeight, outputHeight) + 'px';
+        });
+
+        // Initial adjustment on page load
+        window.dispatchEvent(new Event('resize'));
+
+
+        const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: 'javascript',
+            theme: 'base16-light',
+            lineNumbers: true,
+            indentWithTabs: true,
+            tabSize: 2
+        });
+        codeEditor.setSize('100%', '100%')
+
+        runButton.addEventListener('click', () => {
+            const code = codeEditor.getValue();
+            // Evaluate the code using a JavaScript interpreter
+            try {
+                const output = new Function(code)();
+                outputContainer.textContent = output;
+            } catch (error) {
+                outputContainer.textContent = error.message;
+            }
+        });
+    </script>
 </body>
+
 </html>
