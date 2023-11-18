@@ -100,6 +100,7 @@ let scriptAfter = ''
 let checkFunction = false
 
 let báo = alert
+// let nhập = prompt
 let kho = localStorage
 kho.lấy = kho.getItem
 kho.đặt = kho.setItem
@@ -115,8 +116,16 @@ function viết(e) {
 }
 
 function nhập(e) {
+
     e = prompt(e)
-    try {e = eval(e)} catch (error) {e = e}
+
+    switch (e) {
+        case 'đúng': e = 'true'; break
+        case 'sai': e = 'false'; break
+        case 'trống': e = 'null'; break
+        default: e = e;
+    }
+    try { e = eval(e) } catch (error) { e = e }
     return e
 }
 
