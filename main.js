@@ -84,8 +84,11 @@ let token = [
     {keyword:['đến'], value:'goto'},
     // class
     {keyword:['lớp'], value:'class'},
+    {keyword:['loại'], value:'class'},
     // enum
     {keyword:['liệt', 'kê'], value:'enum'},
+    // new
+    {keyword:['mới'], value:'new'},
 ]
 
 let Toán = Math
@@ -96,12 +99,26 @@ let scriptAfter = ''
 // Read comment bellow
 let checkFunction = false
 
+let báo = alert
+let nhập = prompt
+let kho = localStorage
+kho.lấy = kho.getItem
+kho.đặt = kho.setItem
+kho.xóa = kho.removeItem
+kho.hủy = kho.clear
+document.tìmID = document.getElementById
+document.tìmTag = document.getElementsByTagName
+document.tìmLoại = document.getElementsByClassName
+document.tìmLớp = document.getElementsByClassName
+
 function viết(e) {
     let terminal = document.getElementById("output-container");terminal.appendChild(document.createElement("p")).innerHTML = e;
 }
 
 function nhập(e) {
-    return prompt(e)
+    e = prompt(e)
+    try {e = eval(e)} catch (error) {e = e}
+    return e
 }
 
 function parser(tokens) {
