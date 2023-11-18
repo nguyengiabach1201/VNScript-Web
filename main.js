@@ -77,9 +77,10 @@ let token = [
     // break, continue
     {keyword:['thoát'], value:'break'},
     {keyword:['tiếp','tục'], value:'continue'},
-    // switch, case
+    // switch, case, default
     {keyword:['chuyển'], value:'switch'},
     {keyword:['trường','hợp'], value:'case'},
+    {keyword:['mặc','định'], value:'default'},
     // goto
     {keyword:['đến'], value:'goto'},
     // class
