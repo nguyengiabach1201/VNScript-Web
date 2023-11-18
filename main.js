@@ -100,7 +100,7 @@ let scriptAfter = ''
 let checkFunction = false
 
 let báo = alert
-let nhập = prompt
+// let nhập = prompt
 let kho = localStorage
 kho.lấy = kho.getItem
 kho.đặt = kho.setItem
