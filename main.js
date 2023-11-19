@@ -68,7 +68,7 @@ let token = [
     // try, catch, finally, throw
     {keyword:['thử'], value:'try{'},
     {keyword:['bắt','lỗi'], value:'catch('},
-    {keyword:['cuối','cùng'], value:'finally('},
+    {keyword:['cuối','cùng'], value:'finally{'},
     {keyword:['khử','lỗi'], value:'throw'},
     // import, from, export
     {keyword:['lấy'], value:'import'},
