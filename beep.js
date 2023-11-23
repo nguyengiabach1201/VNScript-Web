@@ -30,7 +30,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     return {
       "nếu": kw("if"), "khi": A, "với": A, "còn": B, "không": B, "thì": B, "làm": B, "hết": B, "thử": B, "cuối": B, "cùng": B,
       "trả": D, "về": D, "thoát": D, "tiếp": D, "tục": D, "mới": kw("new"), "delete": C, "void": C, "khử": C, "lỗi": C,
-      "debugger": kw("debugger"), "đặt": kw("var"),
+      "debugger": kw("debugger"), "đặt": kw("var"), "hằng": kw("var"),
       "thuật": kw("function"), "toán": kw("function"), "bắt": kw("catch"), "lỗi": kw("catch"),
       "với": kw("for"), "chuyển": kw("switch"), "trường": kw("case"), "hợp": kw("case"), "mặc": kw("default"), "định": kw("default"),
       "trong": operator, "typeof": operator, "instanceof": operator,
