@@ -51,6 +51,7 @@ let token = [
     {keyword:['còn','không'], value:'else'},
     // init variables
     {keyword:['đặt'], value:'let'},
+    {keyword:['hằng'], value:'const'},
     // function and return
     {keyword:['thuật','toán'], value:'function'},
     {keyword:['trả','về'], value:'return'},
