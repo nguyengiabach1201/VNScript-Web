@@ -197,6 +197,10 @@ function run()
     scriptBefore = scriptBefore.replaceAll('\n  ','\n ')
     scriptBefore = scriptBefore.replaceAll('  \n',' \n')
 
+    scriptBefore = scriptBefore.replaceAll('\t',' \t ')
+    scriptBefore = scriptBefore.replaceAll('\t  ','\t ')
+    scriptBefore = scriptBefore.replaceAll('  \t',' \t')
+
     scriptBefore = scriptBefore.replaceAll('\"',' \" ')
     scriptBefore = scriptBefore.replaceAll('\"  ','\" ')
     scriptBefore = scriptBefore.replaceAll('  \"',' \"')
