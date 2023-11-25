@@ -154,6 +154,9 @@ function parser(tokens) {
             // else, check if the whole chunk is right
             else if (tokens[i] == token[j].keyword[0] && tokens[i+1] == token[j].keyword[1]) {
 
+                scriptAfter += token[j].value, tokens[i+1] = ''
+                isUserVariable = false
+                
                 // Add { after create a new function to simplify the syntax
                 // thuật toán a() làm hết => thuật toán a() hết
                 // Auto add { to correct the grammar
@@ -161,10 +164,7 @@ function parser(tokens) {
                 // This check if user create a new function
                 if (token[j].value = "function") {
                     checkFunction = true
-                }
-                
-                scriptAfter += token[j].value, tokens[i+1] = ''
-                isUserVariable = false                
+                }    
             }            
         }
         // else, mean the token is custom by user
