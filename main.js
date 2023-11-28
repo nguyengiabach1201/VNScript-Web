@@ -58,9 +58,10 @@ let token = [
     // for loop and while loop
     { keyword: ['với'], value: 'for(' },
     { keyword: ['khi'], value: 'while(' },
-    // and, or, in
+    // and, or, not, in
     { keyword: ['và'], value: '&&' },
     { keyword: ['hoặc'], value: '||' },
+    {keyword:['không', 'phải'], value:'!'},
     { keyword: ['trong'], value: 'in' },
     // true, false, null
     { keyword: ['đúng'], value: 'true' },
