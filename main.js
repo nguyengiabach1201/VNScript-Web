@@ -39,58 +39,58 @@ __    __  ___  _
 // Lexer
 let token = [
     // if, then, end, else
-    {keyword:['nếu'], value:'if('},
+    { keyword: ['nếu'], value: 'if(' },
 
     // {keyword:['thì'], value:')'},
     // {keyword:['rồi'], value:')'},
     // {keyword:['làm'], value:'{'},
 
-    {keyword:['làm'], value:'){'},
+    { keyword: ['làm'], value: '){' },
 
-    {keyword:['hết'], value:'}'},
-    {keyword:['còn','không'], value:'else'},
+    { keyword: ['hết'], value: '}' },
+    { keyword: ['còn', 'không'], value: 'else' },
     // init variables
-    {keyword:['đặt'], value:'let'},
-    {keyword:['hằng'], value:'const'},
+    { keyword: ['đặt'], value: 'let' },
+    { keyword: ['hằng'], value: 'const' },
     // function and return
-    {keyword:['thuật','toán'], value:'function'},
-    {keyword:['trả','về'], value:'return'},
+    { keyword: ['thuật', 'toán'], value: 'function' },
+    { keyword: ['trả', 'về'], value: 'return' },
     // for loop and while loop
-    {keyword:['với'], value:'for('},
-    {keyword:['khi'], value:'while('},
+    { keyword: ['với'], value: 'for(' },
+    { keyword: ['khi'], value: 'while(' },
     // and, or, in
-    {keyword:['và'], value:'&&'},
-    {keyword:['hoặc'], value:'||'},
-    {keyword:['trong'], value:'in'},
+    { keyword: ['và'], value: '&&' },
+    { keyword: ['hoặc'], value: '||' },
+    { keyword: ['trong'], value: 'in' },
     // true, false, null
-    {keyword:['đúng'], value:'true'},
-    {keyword:['sai'], value:'false'},
-    {keyword:['trống'], value:'null'},
+    { keyword: ['đúng'], value: 'true' },
+    { keyword: ['sai'], value: 'false' },
+    { keyword: ['trống'], value: 'null' },
     // try, catch, finally, throw
-    {keyword:['thử'], value:'try{'},
-    {keyword:['bắt','lỗi'], value:'catch('},
-    {keyword:['cuối','cùng'], value:'finally{'},
-    {keyword:['khử','lỗi'], value:'throw'},
+    { keyword: ['thử'], value: 'try{' },
+    { keyword: ['bắt', 'lỗi'], value: 'catch(' },
+    { keyword: ['cuối', 'cùng'], value: 'finally{' },
+    { keyword: ['khử', 'lỗi'], value: 'throw' },
     // import, from, export
-    {keyword:['lấy'], value:'import'},
-    {keyword:['từ'], value:'from'},
-    {keyword:['xuất'], value:'export'},
+    { keyword: ['lấy'], value: 'import' },
+    { keyword: ['từ'], value: 'from' },
+    { keyword: ['xuất'], value: 'export' },
     // break, continue
-    {keyword:['thoát'], value:'break'},
-    {keyword:['tiếp','tục'], value:'continue'},
+    { keyword: ['thoát'], value: 'break' },
+    { keyword: ['tiếp', 'tục'], value: 'continue' },
     // switch, case, default
-    {keyword:['chuyển'], value:'switch'},
-    {keyword:['trường','hợp'], value:'case'},
-    {keyword:['mặc','định'], value:'default'},
+    { keyword: ['chuyển'], value: 'switch' },
+    { keyword: ['trường', 'hợp'], value: 'case' },
+    { keyword: ['mặc', 'định'], value: 'default' },
     // goto
-    {keyword:['đến'], value:'goto'},
+    { keyword: ['đến'], value: 'goto' },
     // class
-    {keyword:['lớp'], value:'class'},
-    {keyword:['loại'], value:'class'},
+    { keyword: ['lớp'], value: 'class' },
+    { keyword: ['loại'], value: 'class' },
     // enum
-    {keyword:['liệt', 'kê'], value:'enum'},
+    { keyword: ['liệt', 'kê'], value: 'enum' },
     // new
-    {keyword:['mới'], value:'new'},
+    { keyword: ['mới'], value: 'new' },
 ]
 
 let Toán = Math
@@ -113,8 +113,10 @@ document.tìmTag = document.getElementsByTagName
 document.tìmLoại = document.getElementsByClassName
 document.tìmLớp = document.getElementsByClassName
 
-function viết(e) {
-    let terminal = document.getElementById("output-container");terminal.appendChild(document.createElement("p")).innerHTML = e;
+function viết() {
+    let out = ''
+    for (i = 0; i < arguments.length; i++) { out += String(arguments[i] + ' ') }
+    let terminal = document.getElementById("output-container"); terminal.appendChild(document.createElement("p")).innerHTML = out;
 }
 
 function nhập(e) {
@@ -145,18 +147,19 @@ function parser(tokens) {
         */
 
         // for each object in token     
-        for (let j = 0; j < token.length; j++) {            
+        for (let j = 0; j < token.length; j++) {
             // if the keyword length is 1, check only 1 token
             if (token[j].keyword.length == 1 && tokens[i] == token[j].keyword) {
                 scriptAfter += token[j].value + ' '
                 isUserVariable = false
-            } 
+            }
             // else, check if the whole chunk is right
-            else if (tokens[i] == token[j].keyword[0] && tokens[i+1] == token[j].keyword[1]) {
+            else if (tokens[i] == token[j].keyword[0] && tokens[i + 1] == token[j].keyword[1]) {
 
-                scriptAfter += token[j].value, tokens[i+1] = ''
+                console.log(token[j].value)
+                scriptAfter += token[j].value, tokens[i + 1] = ''
                 isUserVariable = false
-                
+
                 // Add { after create a new function to simplify the syntax
                 // thuật toán a() làm hết => thuật toán a() hết
                 // Auto add { to correct the grammar
@@ -164,20 +167,20 @@ function parser(tokens) {
                 // This check if user create a new function
                 if (token[j].value = "function") {
                     checkFunction = true
-                }    
-            }            
+                }
+
+            }
         }
         // else, mean the token is custom by user
         if (isUserVariable //&& tokens[i] != ''
-        ) 
-        {
+        ) {
             scriptAfter += tokens[i] + ' '
 
             if (checkFunction && tokens[i] == ")") {
                 checkFunction = false
                 scriptAfter += "{"
             }
-        }        
+        }
     }
 }
 
@@ -188,89 +191,84 @@ function clean() {
     })
 }
 
-function run() 
-{
+function run() {
     clean()
     let scriptBefore = codeEditor.getValue()
 
-    scriptBefore = scriptBefore.replaceAll('\n',' \n ')
-    scriptBefore = scriptBefore.replaceAll('\n  ','\n ')
-    scriptBefore = scriptBefore.replaceAll('  \n',' \n')
+    scriptBefore = scriptBefore.replaceAll('\n', ' \n ')
+    scriptBefore = scriptBefore.replaceAll('\n  ', '\n ')
+    scriptBefore = scriptBefore.replaceAll('  \n', ' \n')
 
-    scriptBefore = scriptBefore.replaceAll('\t',' \t ')
-    scriptBefore = scriptBefore.replaceAll('\t  ','\t ')
-    scriptBefore = scriptBefore.replaceAll('  \t',' \t')
+    scriptBefore = scriptBefore.replaceAll('\"', ' \" ')
+    scriptBefore = scriptBefore.replaceAll('\"  ', '\" ')
+    scriptBefore = scriptBefore.replaceAll('  \"', ' \"')
 
-    scriptBefore = scriptBefore.replaceAll('\"',' \" ')
-    scriptBefore = scriptBefore.replaceAll('\"  ','\" ')
-    scriptBefore = scriptBefore.replaceAll('  \"',' \"')
+    scriptBefore = scriptBefore.replaceAll('\\\"', ' \\\" ')
+    scriptBefore = scriptBefore.replaceAll('\\\"  ', '\\\" ')
+    scriptBefore = scriptBefore.replaceAll('  \\\"', ' \\\"')
 
-    scriptBefore = scriptBefore.replaceAll('\\\"',' \\\" ')
-    scriptBefore = scriptBefore.replaceAll('\\\"  ','\\\" ')
-    scriptBefore = scriptBefore.replaceAll('  \\\"',' \\\"')
+    scriptBefore = scriptBefore.replaceAll('\'', ' \' ')
+    scriptBefore = scriptBefore.replaceAll('\'  ', '\' ')
+    scriptBefore = scriptBefore.replaceAll('  \'', ' \'')
 
-    scriptBefore = scriptBefore.replaceAll('\'',' \' ')
-    scriptBefore = scriptBefore.replaceAll('\'  ','\' ')
-    scriptBefore = scriptBefore.replaceAll('  \'',' \'')
+    scriptBefore = scriptBefore.replaceAll('\\\'', ' \\\' ')
+    scriptBefore = scriptBefore.replaceAll('\\\'  ', '\\\' ')
+    scriptBefore = scriptBefore.replaceAll('  \\\'', ' \\\'')
 
-    scriptBefore = scriptBefore.replaceAll('\\\'',' \\\' ')
-    scriptBefore = scriptBefore.replaceAll('\\\'  ','\\\' ')
-    scriptBefore = scriptBefore.replaceAll('  \\\'',' \\\'')
+    scriptBefore = scriptBefore.replaceAll(";", " ; ")
+    scriptBefore = scriptBefore.replaceAll(";  ", "; ")
+    scriptBefore = scriptBefore.replaceAll("  ;", " ;")
 
-    scriptBefore = scriptBefore.replaceAll(";"," ; ")
-    scriptBefore = scriptBefore.replaceAll(";  ","; ")
-    scriptBefore = scriptBefore.replaceAll("  ;"," ;")
+    scriptBefore = scriptBefore.replaceAll('(', ' ( ')
+    scriptBefore = scriptBefore.replaceAll('(  ', '( ')
+    scriptBefore = scriptBefore.replaceAll('  (', ' (')
 
-    scriptBefore = scriptBefore.replaceAll('(',' ( ')
-    scriptBefore = scriptBefore.replaceAll('(  ','( ')
-    scriptBefore = scriptBefore.replaceAll('  (',' (')
+    scriptBefore = scriptBefore.replaceAll(')', ' ) ')
+    scriptBefore = scriptBefore.replaceAll(')  ', ') ')
+    scriptBefore = scriptBefore.replaceAll('  )', ' )')
 
-    scriptBefore = scriptBefore.replaceAll(')',' ) ')
-    scriptBefore = scriptBefore.replaceAll(')  ',') ')
-    scriptBefore = scriptBefore.replaceAll('  )',' )')
+    scriptBefore = scriptBefore.replaceAll('{', ' { ')
+    scriptBefore = scriptBefore.replaceAll('{  ', '{ ')
+    scriptBefore = scriptBefore.replaceAll('  {', ' {')
 
-    scriptBefore = scriptBefore.replaceAll('{',' { ')
-    scriptBefore = scriptBefore.replaceAll('{  ','{ ')
-    scriptBefore = scriptBefore.replaceAll('  {',' {')
+    scriptBefore = scriptBefore.replaceAll('}', ' } ')
+    scriptBefore = scriptBefore.replaceAll('}  ', '} ')
+    scriptBefore = scriptBefore.replaceAll('  }', ' }')
 
-    scriptBefore = scriptBefore.replaceAll('}',' } ')
-    scriptBefore = scriptBefore.replaceAll('}  ','} ')
-    scriptBefore = scriptBefore.replaceAll('  }',' }')
+    scriptBefore = scriptBefore.replaceAll('[', ' [ ')
+    scriptBefore = scriptBefore.replaceAll('[  ', '[ ')
+    scriptBefore = scriptBefore.replaceAll('  [', ' [')
 
-    scriptBefore = scriptBefore.replaceAll('[',' [ ')
-    scriptBefore = scriptBefore.replaceAll('[  ','[ ')
-    scriptBefore = scriptBefore.replaceAll('  [',' [')
+    scriptBefore = scriptBefore.replaceAll(']', ' ] ')
+    scriptBefore = scriptBefore.replaceAll(']  ', '] ')
+    scriptBefore = scriptBefore.replaceAll('  ]', ' ]')
 
-    scriptBefore = scriptBefore.replaceAll(']',' ] ')
-    scriptBefore = scriptBefore.replaceAll(']  ','] ')
-    scriptBefore = scriptBefore.replaceAll('  ]',' ]')
+    scriptBefore = scriptBefore.replaceAll(':', ' : ')
+    scriptBefore = scriptBefore.replaceAll(':  ', ': ')
+    scriptBefore = scriptBefore.replaceAll('  :', ' :')
 
-    scriptBefore = scriptBefore.replaceAll(':',' : ')
-    scriptBefore = scriptBefore.replaceAll(':  ',': ')
-    scriptBefore = scriptBefore.replaceAll('  :',' :')
+    scriptBefore = scriptBefore.replaceAll('=', '= ')
+    scriptBefore = scriptBefore.replaceAll('=  ', '= ')
+    scriptBefore = scriptBefore.replaceAll('= =', '==')
 
-    scriptBefore = scriptBefore.replaceAll('=','= ')
-    scriptBefore = scriptBefore.replaceAll('=  ','= ')
-    scriptBefore = scriptBefore.replaceAll('= =','==')
+    scriptBefore = scriptBefore.replaceAll('+', '+ ')
+    scriptBefore = scriptBefore.replaceAll('+  ', '+ ')
+    scriptBefore = scriptBefore.replaceAll('+ =', '+=')
+    scriptBefore = scriptBefore.replaceAll('+ +', '++')
 
-    scriptBefore = scriptBefore.replaceAll('+','+ ')
-    scriptBefore = scriptBefore.replaceAll('+  ','+ ')
-    scriptBefore = scriptBefore.replaceAll('+ =','+=')
-    scriptBefore = scriptBefore.replaceAll('+ +','++')
-
-    scriptBefore = scriptBefore.replaceAll('-','- ')
-    scriptBefore = scriptBefore.replaceAll('-  ','- ')
-    scriptBefore = scriptBefore.replaceAll('- =','-=')
-    scriptBefore = scriptBefore.replaceAll('- -','--')
+    scriptBefore = scriptBefore.replaceAll('-', '- ')
+    scriptBefore = scriptBefore.replaceAll('-  ', '- ')
+    scriptBefore = scriptBefore.replaceAll('- =', '-=')
+    scriptBefore = scriptBefore.replaceAll('- -', '--')
 
     // Dont know why this work:)
     token.forEach(token_ => {
         token_.keyword.forEach(key => {
-            scriptBefore = scriptBefore.replaceAll(key,key +' ')
-            scriptBefore = scriptBefore.replaceAll(key + '  ',key + ' ')
+            scriptBefore = scriptBefore.replaceAll(key, key + ' ')
+            scriptBefore = scriptBefore.replaceAll(key + '  ', key + ' ')
         })
-        
-    })    
+
+    })
 
     let tokens = scriptBefore.split(" ")
 
@@ -290,7 +288,7 @@ function run()
         if (tokens[i].includes("\"") && !tokens[i].includes("\\\"")) {
             inDoubleQuotes = !inDoubleQuotes
 
-            if (inDoubleQuotes && indexOfDoubleQuotes == -1) {indexOfDoubleQuotes = i}
+            if (inDoubleQuotes && indexOfDoubleQuotes == -1) { indexOfDoubleQuotes = i }
             if (!inDoubleQuotes) indexOfDoubleQuotes = -1
         }
         if (inDoubleQuotes) {
@@ -298,12 +296,11 @@ function run()
         }
 
         // Single quotes
-        if (!inDoubleQuotes)
-        {
+        if (!inDoubleQuotes) {
             if (tokens[i].includes("\'") && !tokens[i].includes("\\\'")) {
                 inSingleQuotes = !inSingleQuotes
 
-                if (inSingleQuotes && indexOfSingleQuotes == -1) {indexOfSingleQuotes = i}
+                if (inSingleQuotes && indexOfSingleQuotes == -1) { indexOfSingleQuotes = i }
                 if (!inSingleQuotes) indexOfSingleQuotes = -1
             }
             if (inSingleQuotes) {
@@ -312,12 +309,11 @@ function run()
         }
 
         // ` quotes
-        if (!inDoubleQuotes && !inSingleQuotes)
-        {
+        if (!inDoubleQuotes && !inSingleQuotes) {
             if (tokens[i].includes("\`") && !tokens[i].includes("\\\`")) {
                 inBackQuotes = !inBackQuotes
 
-                if (inBackQuotes && indexOfBackQuotes == -1) {indexOfBackQuotes = i}
+                if (inBackQuotes && indexOfBackQuotes == -1) { indexOfBackQuotes = i }
                 if (!inBackQuotes) indexOfBackQuotes = -1
             }
             if (inBackQuotes) {
@@ -327,14 +323,13 @@ function run()
     }
 
     parser(tokens)
-    try{
-        eval(scriptAfter) 
+    try {
+        eval(scriptAfter)
     }
-    catch (error)
-    {
+    catch (error) {
         console.log(error.stack)
         // let text = ''+error.stack
-        
+
         // console.log(error.message)
         // console.log(test = error.stack - error.message)
         // console.log(text.indexOf("<anonymous>:"))
