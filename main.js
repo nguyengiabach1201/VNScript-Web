@@ -113,6 +113,7 @@ document.tìmID = document.getElementById
 document.tìmTag = document.getElementsByTagName
 document.tìmLoại = document.getElementsByClassName
 document.tìmLớp = document.getElementsByClassName
+Array.prototype.thêm = function(a) {this.push(a)};
 
 function viết() {
     let out = ''
