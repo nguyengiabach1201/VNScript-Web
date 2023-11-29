@@ -54,6 +54,7 @@ let token = [
     { keyword: ['hằng'], value: 'const' },
     // function and return
     { keyword: ['thuật', 'toán'], value: 'function' },
+    {keyword:['hàm'], value:'function'},
     { keyword: ['trả', 'về'], value: 'return' },
     // for loop and while loop
     { keyword: ['với'], value: 'for(' },
@@ -154,6 +155,15 @@ function parser(tokens) {
             if (token[j].keyword.length == 1 && tokens[i] == token[j].keyword) {
                 scriptAfter += token[j].value + ' '
                 isUserVariable = false
+
+                // Add { after create a new function to simplify the syntax
+                // thuật toán a() làm hết => thuật toán a() hết
+                // Auto add { to correct the grammar
+
+                // This check if user create a new function
+                if (token[j].value = "function") {
+                    checkFunction = true
+                }
             }
             // else, check if the whole chunk is right
             else if (tokens[i] == token[j].keyword[0] && tokens[i + 1] == token[j].keyword[1]) {
