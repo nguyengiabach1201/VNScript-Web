@@ -48,7 +48,7 @@ let token = [
     { keyword: ['làm'], value: '){' },
 
     { keyword: ['hết'], value: '}' },
-    { keyword: ['còn', 'không'], value: 'else' },
+    { keyword: ['còn', 'không'], value: '}else' },
     // init variables
     { keyword: ['đặt'], value: 'let' },
     { keyword: ['hằng'], value: 'const' },
