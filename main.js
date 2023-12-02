@@ -53,7 +53,7 @@ let token = [
     { keyword: ['đặt'], value: 'let' },
     { keyword: ['hằng'], value: 'const' },
     // function and return
-    { keyword: ['thuật', 'toán'], value: 'function' }
+    { keyword: ['thuật', 'toán'], value: 'function' },
     { keyword: ['trả', 'về'], value: 'return' },
     // for loop and while loop
     { keyword: ['với'], value: 'for(' },
@@ -157,6 +157,7 @@ function parser(tokens) {
             }
             // else, check if the whole chunk is right
             else if (tokens[i] == token[j].keyword[0] && tokens[i + 1] == token[j].keyword[1]) {
+
                 scriptAfter += token[j].value, tokens[i + 1] = ''
                 isUserVariable = false
 
