@@ -38,15 +38,42 @@
 </head>
 
 <body>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="downloadFile()">Lưu</a>
+                <!-- <ul>
+                    <li><a id="load-button">Load</a></li>
+                    <li><a id="save-button">Save</a></li>
+                    <li><a href="#">---</a></li>
+                    <li><a href="#">Export</a></li>
+                    <li><a href="#">Print</a></li>
+                </ul> -->
+            </li>
+            <li><a href="#" onclick="openFile()">Mở</a>
+                <!-- <ul>
+                    <li><a href="#">Undo</a></li>
+                    <li><a href="#">Redo</a></li>
+                    <li><a href="#">---</a></li>
+                    <li><a href="#">Cut</a></li>
+                    <li><a href="#">Copy</a></li>
+                    <li><a href="#">Paste</a></li>
+                </ul> -->
+            </li>
+            <li><a href="#">Hỗ trợ</a></li>
+        </ul>
+    </nav>
+
     <div class="container">
 
         <div class="editor-container">
             <textarea id="code-editor"></textarea>
         </div>
 
-        <div class="output-container" id="output-container"></div>
+        <div class="output-container" id="output-container">
+            <button class="run-button" id="run-button" onclick="run()">Chạy</button>
+        </div>
 
-        <button class="run-button" id="run-button" onclick="run()">Chạy</button>
+        <!-- <button class="run-button" id="run-button" onclick="run()">Chạy</button> -->
     </div>
 
     <script src="main.js"></script>

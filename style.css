@@ -3,13 +3,14 @@ body {
     background-color: #f2f2f2;
     margin: 0;
     padding: 0;
+    overflow-y: hidden;
 }
 
 .container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    height: 95vh;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -40,11 +41,32 @@ body {
     overflow-y: scroll;
 }
 
-.output-container > *{
+.output-container>* {
     margin: 0;
 }
 
 .run-button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 25%;
+    height: 40px;
+    width: 50px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block;
+
+    position: absolute;
+    bottom: 5.5vh;
+    right: 5.5vh;
+}
+
+.run-button:hover {
+    background-color: #0062cc;
+}
+
+/* .run-button {
     display: block;
     margin: 0 auto;
     padding: 10px 20px;
@@ -54,7 +76,7 @@ body {
     color: #fff;
     border-radius: 5px;
     font-size: 16px;
-}
+} */
 
 @media (min-width: 768px) {
     .container {
@@ -66,10 +88,10 @@ body {
         flex: 1;
     }
 
-    .run-button {
+    /* .run-button {
         height: 25%;
-        /* width: 50%; */
-    }
+        // width: 50%;
+    } */
 }
 
 ::-webkit-scrollbar {
@@ -81,4 +103,54 @@ body {
 ::-webkit-scrollbar-thumb {
     border-radius: 25px;
     background: gray;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #eee;
+    border-bottom: 1px solid #ddd;
+    height: 5vh;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+nav li a:hover {
+    background-color: #f5f5f5;
+}
+
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+nav li:hover ul {
+    display: block;
+}
+
+nav ul ul li a {
+    padding: 5px 10px;
 }

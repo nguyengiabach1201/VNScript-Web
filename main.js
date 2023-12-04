@@ -2,19 +2,6 @@ const editorContainer = document.querySelector('.editor-container');
 const runButton = document.getElementById('run-button');
 const outputContainer = document.getElementById('output-container');
 
-// Adjust the height of the run button on window resize
-window.addEventListener('resize', () => {
-    const editorHeight = editorContainer.offsetHeight;
-    const outputHeight = outputContainer.offsetHeight;
-
-    // Set the height of the run button to the maximum of the editor and output container heights
-    runButton.style.height = Math.max(editorHeight, outputHeight) + 'px';
-});
-
-// Initial adjustment on page load
-window.dispatchEvent(new Event('resize'));
-
-
 const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
     mode: 'javascript',
     theme: 'base16-light',
@@ -27,6 +14,56 @@ const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'
     tabSize: 2
 });
 codeEditor.setSize('100%', '100%')
+
+let fileName
+function downloadFile() {
+    // Create a Blob object
+    const blob = new Blob([codeEditor.getValue()], { type: "text/plain" });
+
+    // Create an anchor tag
+    const a = document.createElement("a");
+
+    // Set href attribute to Blob URL
+    a.href = window.URL.createObjectURL(blob);
+
+    // Set download attribute with file name
+    // if (!fileName) {fileName = prompt("Bạn muốn lưu file với tên gì?")}
+    fileName = prompt("Bạn muốn lưu file với tên gì?")
+    a.download = fileName + '.txt';
+
+    // Trigger click event to download the file
+    a.click();
+
+    // Clean up after click
+    window.URL.revokeObjectURL(a.href);
+}
+
+async function openFile() {
+    // Show a native file selection dialog
+    const files = await window.showOpenFilePicker({
+        types: [{
+            description: 'Text Files',
+            accept: { 'text/plain': ['.txt'] },
+        }],
+    });
+
+    // Ensure at least one file was selected
+    if (!files || !files.length) {
+        alert('No file selected!');
+        return;
+    }
+
+    // Read the first file content
+    const file = files[0];
+    text = await file.getFile()
+    const reader = new FileReader();
+    const content = await new Promise((resolve, reject) => {
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsText(text.slice());
+    });
+    codeEditor.setValue(content)
+}
 
 /* 
 __    __  ___  _  
@@ -46,7 +83,6 @@ let token = [
     // {keyword:['làm'], value:'{'},
 
     { keyword: ['làm'], value: '){' },
-
     { keyword: ['hết'], value: '}' },
     { keyword: ['còn', 'không'], value: '}else' },
     // init variables
@@ -61,7 +97,7 @@ let token = [
     // and, or, not, in
     { keyword: ['và'], value: '&&' },
     { keyword: ['hoặc'], value: '||' },
-    {keyword:['không', 'phải'], value:'!'},
+    { keyword: ['không', 'phải'], value: '!' },
     { keyword: ['trong'], value: 'in' },
     // true, false, null
     { keyword: ['đúng'], value: 'true' },
@@ -113,7 +149,7 @@ document.tìmID = document.getElementById
 document.tìmTag = document.getElementsByTagName
 document.tìmLoại = document.getElementsByClassName
 document.tìmLớp = document.getElementsByClassName
-Array.prototype.thêm = function(a) {this.push(a)};
+Array.prototype.thêm = function (a) { this.push(a) };
 
 function viết() {
     let out = ''
@@ -196,71 +232,91 @@ function run() {
     clean()
     let scriptBefore = codeEditor.getValue()
 
+    // scriptBefore = scriptBefore.replaceAll('\n', ' \n ')
+    // scriptBefore = scriptBefore.replaceAll('\n  ', '\n ')
+    // scriptBefore = scriptBefore.replaceAll('  \n', ' \n')
+
+    // scriptBefore = scriptBefore.replaceAll('\"', ' \" ')
+    // scriptBefore = scriptBefore.replaceAll('\"  ', '\" ')
+    // scriptBefore = scriptBefore.replaceAll('  \"', ' \"')
+
+    // scriptBefore = scriptBefore.replaceAll('\\\"', ' \\\" ')
+    // scriptBefore = scriptBefore.replaceAll('\\\"  ', '\\\" ')
+    // scriptBefore = scriptBefore.replaceAll('  \\\"', ' \\\"')
+
+    // scriptBefore = scriptBefore.replaceAll('\'', ' \' ')
+    // scriptBefore = scriptBefore.replaceAll('\'  ', '\' ')
+    // scriptBefore = scriptBefore.replaceAll('  \'', ' \'')
+
+    // scriptBefore = scriptBefore.replaceAll('\\\'', ' \\\' ')
+    // scriptBefore = scriptBefore.replaceAll('\\\'  ', '\\\' ')
+    // scriptBefore = scriptBefore.replaceAll('  \\\'', ' \\\'')
+
+    // scriptBefore = scriptBefore.replaceAll(";", " ; ")
+    // scriptBefore = scriptBefore.replaceAll(";  ", "; ")
+    // scriptBefore = scriptBefore.replaceAll("  ;", " ;")
+
+    // scriptBefore = scriptBefore.replaceAll('(', ' ( ')
+    // scriptBefore = scriptBefore.replaceAll('(  ', '( ')
+    // scriptBefore = scriptBefore.replaceAll('  (', ' (')
+
+    // scriptBefore = scriptBefore.replaceAll(')', ' ) ')
+    // scriptBefore = scriptBefore.replaceAll(')  ', ') ')
+    // scriptBefore = scriptBefore.replaceAll('  )', ' )')
+
+    // scriptBefore = scriptBefore.replaceAll('{', ' { ')
+    // scriptBefore = scriptBefore.replaceAll('{  ', '{ ')
+    // scriptBefore = scriptBefore.replaceAll('  {', ' {')
+
+    // scriptBefore = scriptBefore.replaceAll('}', ' } ')
+    // scriptBefore = scriptBefore.replaceAll('}  ', '} ')
+    // scriptBefore = scriptBefore.replaceAll('  }', ' }')
+
+    // scriptBefore = scriptBefore.replaceAll('[', ' [ ')
+    // scriptBefore = scriptBefore.replaceAll('[  ', '[ ')
+    // scriptBefore = scriptBefore.replaceAll('  [', ' [')
+
+    // scriptBefore = scriptBefore.replaceAll(']', ' ] ')
+    // scriptBefore = scriptBefore.replaceAll(']  ', '] ')
+    // scriptBefore = scriptBefore.replaceAll('  ]', ' ]')
+
+    // scriptBefore = scriptBefore.replaceAll(':', ' : ')
+    // scriptBefore = scriptBefore.replaceAll(':  ', ': ')
+    // scriptBefore = scriptBefore.replaceAll('  :', ' :')
+
+    // scriptBefore = scriptBefore.replaceAll('=', '= ')
+    // scriptBefore = scriptBefore.replaceAll('=  ', '= ')
+    // scriptBefore = scriptBefore.replaceAll('= = =','===')
+    // scriptBefore = scriptBefore.replaceAll('= =', '==')
+    // scriptBefore = scriptBefore.replaceAll('= <', '=<')
+    // scriptBefore = scriptBefore.replaceAll('= >', '=>')
+
+    // scriptBefore = scriptBefore.replaceAll('+', '+ ')
+    // scriptBefore = scriptBefore.replaceAll('+  ', '+ ')
+    // scriptBefore = scriptBefore.replaceAll('+ =', '+=')
+    // scriptBefore = scriptBefore.replaceAll('+ +', '++')
+
+    // scriptBefore = scriptBefore.replaceAll('-', '- ')
+    // scriptBefore = scriptBefore.replaceAll('-  ', '- ')
+    // scriptBefore = scriptBefore.replaceAll('- =', '-=')
+    // scriptBefore = scriptBefore.replaceAll('- -', '--')
+
     scriptBefore = scriptBefore.replaceAll('\n', ' \n ')
-    scriptBefore = scriptBefore.replaceAll('\n  ', '\n ')
-    scriptBefore = scriptBefore.replaceAll('  \n', ' \n')
-
     scriptBefore = scriptBefore.replaceAll('\"', ' \" ')
-    scriptBefore = scriptBefore.replaceAll('\"  ', '\" ')
-    scriptBefore = scriptBefore.replaceAll('  \"', ' \"')
-
     scriptBefore = scriptBefore.replaceAll('\\\"', ' \\\" ')
-    scriptBefore = scriptBefore.replaceAll('\\\"  ', '\\\" ')
-    scriptBefore = scriptBefore.replaceAll('  \\\"', ' \\\"')
-
     scriptBefore = scriptBefore.replaceAll('\'', ' \' ')
-    scriptBefore = scriptBefore.replaceAll('\'  ', '\' ')
-    scriptBefore = scriptBefore.replaceAll('  \'', ' \'')
-
     scriptBefore = scriptBefore.replaceAll('\\\'', ' \\\' ')
-    scriptBefore = scriptBefore.replaceAll('\\\'  ', '\\\' ')
-    scriptBefore = scriptBefore.replaceAll('  \\\'', ' \\\'')
-
     scriptBefore = scriptBefore.replaceAll(";", " ; ")
-    scriptBefore = scriptBefore.replaceAll(";  ", "; ")
-    scriptBefore = scriptBefore.replaceAll("  ;", " ;")
-
     scriptBefore = scriptBefore.replaceAll('(', ' ( ')
-    scriptBefore = scriptBefore.replaceAll('(  ', '( ')
-    scriptBefore = scriptBefore.replaceAll('  (', ' (')
-
     scriptBefore = scriptBefore.replaceAll(')', ' ) ')
-    scriptBefore = scriptBefore.replaceAll(')  ', ') ')
-    scriptBefore = scriptBefore.replaceAll('  )', ' )')
-
     scriptBefore = scriptBefore.replaceAll('{', ' { ')
-    scriptBefore = scriptBefore.replaceAll('{  ', '{ ')
-    scriptBefore = scriptBefore.replaceAll('  {', ' {')
-
     scriptBefore = scriptBefore.replaceAll('}', ' } ')
-    scriptBefore = scriptBefore.replaceAll('}  ', '} ')
-    scriptBefore = scriptBefore.replaceAll('  }', ' }')
-
     scriptBefore = scriptBefore.replaceAll('[', ' [ ')
-    scriptBefore = scriptBefore.replaceAll('[  ', '[ ')
-    scriptBefore = scriptBefore.replaceAll('  [', ' [')
-
     scriptBefore = scriptBefore.replaceAll(']', ' ] ')
-    scriptBefore = scriptBefore.replaceAll(']  ', '] ')
-    scriptBefore = scriptBefore.replaceAll('  ]', ' ]')
-
     scriptBefore = scriptBefore.replaceAll(':', ' : ')
-    scriptBefore = scriptBefore.replaceAll(':  ', ': ')
-    scriptBefore = scriptBefore.replaceAll('  :', ' :')
-
     scriptBefore = scriptBefore.replaceAll('=', '= ')
-    scriptBefore = scriptBefore.replaceAll('=  ', '= ')
-    scriptBefore = scriptBefore.replaceAll('= =', '==')
-
     scriptBefore = scriptBefore.replaceAll('+', '+ ')
-    scriptBefore = scriptBefore.replaceAll('+  ', '+ ')
-    scriptBefore = scriptBefore.replaceAll('+ =', '+=')
-    scriptBefore = scriptBefore.replaceAll('+ +', '++')
-
     scriptBefore = scriptBefore.replaceAll('-', '- ')
-    scriptBefore = scriptBefore.replaceAll('-  ', '- ')
-    scriptBefore = scriptBefore.replaceAll('- =', '-=')
-    scriptBefore = scriptBefore.replaceAll('- -', '--')
 
     // Dont know why this work:)
     token.forEach(token_ => {
@@ -324,6 +380,24 @@ function run() {
     }
 
     parser(tokens)
+
+    scriptAfter = scriptAfter.replaceAll(' \n ', '\n')
+    scriptAfter = scriptAfter.replaceAll('  \" ', '\"')
+    scriptAfter = scriptAfter.replaceAll('  \\\" ', '\\\"')
+    scriptAfter = scriptAfter.replaceAll('  \' ', '\'')
+    scriptAfter = scriptAfter.replaceAll('  \\\' ', '\\\'')
+    scriptAfter = scriptAfter.replaceAll(" ; ", ";")
+    scriptAfter = scriptAfter.replaceAll(' ( ', '(')
+    scriptAfter = scriptAfter.replaceAll(' ) ', ')')
+    scriptAfter = scriptAfter.replaceAll(' { ', '{')
+    scriptAfter = scriptAfter.replaceAll(' } ', '}')
+    scriptAfter = scriptAfter.replaceAll(' [ ', '[')
+    scriptAfter = scriptAfter.replaceAll(' ] ', ']')
+    scriptAfter = scriptAfter.replaceAll(' : ', ':')
+    scriptAfter = scriptAfter.replaceAll('= ', '=')
+    scriptAfter = scriptAfter.replaceAll('+ ', '+')
+    scriptAfter = scriptAfter.replaceAll('- ', '-')
+
     try {
         eval(scriptAfter)
     }
