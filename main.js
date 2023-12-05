@@ -202,7 +202,7 @@ function parser(tokens) {
                 // Auto add { to correct the grammar
 
                 // This check if user create a new function
-                if (token[j].value = "function") {
+                if (token[j].value == "function") {
                     checkFunction = true
                 }
 
