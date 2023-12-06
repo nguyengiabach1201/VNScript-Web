@@ -84,7 +84,7 @@ let token = [
 
     { keyword: ['làm'], value: '){' },
     { keyword: ['hết'], value: '}' },
-    { keyword: ['còn', 'không'], value: '}else' },
+    { keyword: ['còn', 'không'], value: '}else if(true == true' },
     // init variables
     { keyword: ['đặt'], value: 'let' },
     { keyword: ['hằng'], value: 'const' },
@@ -136,7 +136,7 @@ let scriptBefore = ''
 let scriptAfter = ''
 
 // Read comment bellow
-let checkFunction = false
+let checkFunction = false, checkElse = false
 
 let báo = alert
 // let nhập = prompt
@@ -193,7 +193,6 @@ function parser(tokens) {
             }
             // else, check if the whole chunk is right
             else if (tokens[i] == token[j].keyword[0] && tokens[i + 1] == token[j].keyword[1]) {
-
                 scriptAfter += token[j].value, tokens[i + 1] = ''
                 isUserVariable = false
 
@@ -205,7 +204,6 @@ function parser(tokens) {
                 if (token[j].value == "function") {
                     checkFunction = true
                 }
-
             }
         }
         // else, mean the token is custom by user
@@ -302,6 +300,7 @@ function run() {
     // scriptBefore = scriptBefore.replaceAll('- -', '--')
 
     scriptBefore = scriptBefore.replaceAll('\n', ' \n ')
+    scriptBefore = scriptBefore.replaceAll('\t', ' \t ')
     scriptBefore = scriptBefore.replaceAll('\"', ' \" ')
     scriptBefore = scriptBefore.replaceAll('\\\"', ' \\\" ')
     scriptBefore = scriptBefore.replaceAll('\'', ' \' ')
@@ -382,6 +381,7 @@ function run() {
     parser(tokens)
 
     scriptAfter = scriptAfter.replaceAll(' \n ', '\n')
+    scriptAfter = scriptAfter.replaceAll(' \t ', '\t')
     scriptAfter = scriptAfter.replaceAll('  \" ', '\"')
     scriptAfter = scriptAfter.replaceAll('  \\\" ', '\\\"')
     scriptAfter = scriptAfter.replaceAll('  \' ', '\'')
