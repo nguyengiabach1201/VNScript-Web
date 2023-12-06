@@ -28,7 +28,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     var operator = kw("operator"), atom = {type: "atom", style: "atom"};
 
     return {
-      "nếu": kw("if"), "khi": A, "với": A, "còn": B, "không": B, "thì": B, "làm": B, "hết": B, "thử": B, "cuối": B, "cùng": B,
+      "nếu": kw("if"), "khi": A, "với": A, "còn": B, "không": B, "phải": B, "thì": B, "làm": B, "hết": B, "thử": B, "cuối": B, "cùng": B,
       "trả": D, "về": D, "thoát": D, "tiếp": D, "tục": D, "mới": kw("new"), "delete": C, "void": C, "khử": C, "lỗi": C,
       "debugger": kw("debugger"), "đặt": kw("var"), "hằng": kw("var"),
       "thuật": kw("function"), "toán": kw("function"), "bắt": kw("catch"), "lỗi": kw("catch"),
