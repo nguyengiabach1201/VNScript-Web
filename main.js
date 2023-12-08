@@ -65,7 +65,11 @@ async function openFile() {
     codeEditor.setValue(content)
 }
 
-function openNewFile() {
+async function openNewFile() {
+    if (confirm('Bạn có muốn lưu file này không')) {
+      // Save it!
+      downloadFile()
+    }
     codeEditor.setValue('')
 }
 
