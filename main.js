@@ -65,6 +65,10 @@ async function openFile() {
     codeEditor.setValue(content)
 }
 
+function openNewFile() {
+    codeEditor.setValue('')
+}
+
 /* 
 __    __  ___  _  
 \ \  / / |   \| |
