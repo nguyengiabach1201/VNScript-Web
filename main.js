@@ -67,8 +67,8 @@ async function openFile() {
 
 async function openNewFile() {
     if (confirm('Bạn có muốn lưu file này không')) {
-      // Save it!
-      downloadFile()
+        // Save it!
+        downloadFile()
     }
     codeEditor.setValue('')
 }
@@ -92,7 +92,7 @@ let token = [
 
     { keyword: ['làm'], value: '){' },
     { keyword: ['hết'], value: '}' },
-    { keyword: ['còn', 'không'], value: '}else if(true == true' },
+    { keyword: ['còn', 'không'], value: '}else' },
     // init variables
     { keyword: ['đặt'], value: 'let' },
     { keyword: ['hằng'], value: 'const' },
@@ -196,8 +196,15 @@ function parser(tokens) {
         for (let j = 0; j < token.length; j++) {
             // if the keyword length is 1, check only 1 token
             if (token[j].keyword.length == 1 && tokens[i] == token[j].keyword) {
-                scriptAfter += token[j].value + ' '
-                isUserVariable = false
+                if (checkElse == false || token[j].value == 'if(') {
+                    scriptAfter += token[j].value + ' '
+                    isUserVariable = false
+                    checkElse = false
+                } else {
+                    scriptAfter += '{' + ' '
+                    isUserVariable = false
+                    checkElse = false
+                }
             }
             // else, check if the whole chunk is right
             else if (tokens[i] == token[j].keyword[0] && tokens[i + 1] == token[j].keyword[1]) {
@@ -211,6 +218,10 @@ function parser(tokens) {
                 // This check if user create a new function
                 if (token[j].value == "function") {
                     checkFunction = true
+                }
+
+                if (token[j].value == "}else") {
+                    checkElse = true
                 }
             }
         }
