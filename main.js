@@ -431,7 +431,7 @@ function run() {
 
         let terminal = document.getElementById("output-container")
         let p = terminal.appendChild(document.createElement("p"))
-        p.innerHTML = "Lỗi!!!";
+        p.innerHTML = "Lỗi cú pháp!!!";
         p.style = "color: red"
     }
 
