@@ -165,6 +165,10 @@ function viết() {
     let terminal = document.getElementById("output-container"); terminal.appendChild(document.createElement("p")).innerHTML = out;
 }
 
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+
 function nhập(e) {
 
     e = prompt(e)
