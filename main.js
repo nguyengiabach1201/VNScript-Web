@@ -136,8 +136,6 @@ let token = [
     { keyword: ['liệt', 'kê'], value: 'enum' },
     // new
     { keyword: ['mới'], value: 'new' },
-    // random
-    { keyword: ['ngẫu', 'nhiên'], value: 'random' },
 ]
 
 let Toán = Math
