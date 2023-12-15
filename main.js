@@ -427,8 +427,9 @@ function run() {
     catch (error) {
         lines = scriptAfter.split("\n")
 
-        console.log(error.message)
-        // console.log(error.stack)
+        // console.log(error.message)
+        console.log(error.stack)
+
         // let text = ''+error.stack
 
         // console.log(error.message)
@@ -456,10 +457,13 @@ function run() {
             }
 
             caseInvalidFunction = error.message.split(" ")
-            console.log(caseInvalidFunction[1] + " " + caseInvalidFunction[2] + " " + caseInvalidFunction[3] + " " + caseInvalidFunction[4])
+            // console.log(caseInvalidFunction[1] + " " + caseInvalidFunction[2] + " " + caseInvalidFunction[3] + " " + caseInvalidFunction[4])
             if ((caseInvalidFunction[1] + " " + caseInvalidFunction[2] + " " + caseInvalidFunction[3] + " " + caseInvalidFunction[4]) == "is not a function") {
                 errorType += caseInvalidFunction[0] + " không hợp lệ!"
             }
+        }
+        else {
+            errorType = error.message
         }
 
         p.innerHTML = errorType;
