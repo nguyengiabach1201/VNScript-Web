@@ -341,13 +341,13 @@ function run() {
     scriptBefore = scriptBefore.replaceAll('-', '- ')
 
     // Dont know why this work:)
-    token.forEach(token_ => {
-        token_.keyword.forEach(key => {
-            scriptBefore = scriptBefore.replaceAll(key, key + ' ')
-            scriptBefore = scriptBefore.replaceAll(key + '  ', key + ' ')
-        })
+    // token.forEach(token_ => {
+    //     token_.keyword.forEach(key => {
+    //         scriptBefore = scriptBefore.replaceAll(key, key + ' ')
+    //         scriptBefore = scriptBefore.replaceAll(key + '  ', key + ' ')
+    //     })
 
-    })
+    // })
 
     let tokens = scriptBefore.split(" ")
 
@@ -425,7 +425,10 @@ function run() {
         eval(scriptAfter)
     }
     catch (error) {
-        console.log(error.stack)
+        lines = scriptAfter.split("\n")
+
+        console.log(error.message)
+        // console.log(error.stack)
         // let text = ''+error.stack
 
         // console.log(error.message)
@@ -435,7 +438,31 @@ function run() {
 
         let terminal = document.getElementById("output-container")
         let p = terminal.appendChild(document.createElement("p"))
-        p.innerHTML = "Lỗi cú pháp!!!";
+
+        let errorType
+
+        if (error instanceof ReferenceError){
+            errorType = "Lỗi tham chiếu '" + error.message.split(' ')[0] + "'!"
+        }
+        if (error instanceof TypeError || error instanceof SyntaxError){
+            errorType = "Lỗi cú pháp! "
+
+            if (error.message == "Invalid left-hand side in assignment" || error.message == "invalid assignment left-hand side" || error.message == "Left side of assignment is not a reference.") {
+                errorType += "Phép gán bên trái không hợp lệ!"
+            }
+
+            if (error.message == "Unexpected end of input") {
+                errorType += "Cấu trúc không hợp lệ!"
+            }
+
+            caseInvalidFunction = error.message.split(" ")
+            console.log(caseInvalidFunction[1] + " " + caseInvalidFunction[2] + " " + caseInvalidFunction[3] + " " + caseInvalidFunction[4])
+            if ((caseInvalidFunction[1] + " " + caseInvalidFunction[2] + " " + caseInvalidFunction[3] + " " + caseInvalidFunction[4]) == "is not a function") {
+                errorType += caseInvalidFunction[0] + " không hợp lệ!"
+            }
+        }
+
+        p.innerHTML = errorType;
         p.style = "color: red"
     }
 
